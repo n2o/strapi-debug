@@ -2,13 +2,10 @@ name: Test
 
 on:
   pull_request:
-  push:
 
 jobs:
   test:
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -17,8 +14,21 @@ jobs:
           cache: "yarn"
       - name: Install dependencies
         run: yarn
-      - name: Execute tests
+      - name: Executetests
         run: yarn test
+  testMacos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn
+      - name: Executetests
+        run: yarn test
+
   build:
     runs-on: ubuntu-latest
     steps:
